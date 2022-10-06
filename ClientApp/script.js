@@ -4,9 +4,6 @@ const descriptionInput = document.querySelector('#description');
 const notesContainer = document.querySelector('#notes__container');
 const deleteButton = document.querySelector('#btnDelete');
 
-
-
-
 function clearForm(){
     titleInput.value = '';
     descriptionInput.value = '';
@@ -19,7 +16,7 @@ function displayNoteInForm(note){
     descriptionInput.value = note.description;
     deleteButton.classList.remove('hidden');
     deleteButton.setAttribute('data-id', note.id)
-
+    saveButton.setAttribute('data-id', note.id)
 }
 
 function getNoteById(id){
@@ -88,7 +85,7 @@ getAllNotes();
 function updateNote (id, title, description){
     const body = {
         title: title,
-        description: descriptoin,
+        description: description,
         isVisible: true
     };
 
@@ -109,7 +106,7 @@ function updateNote (id, title, description){
 saveButton.addEventListener('click', function(){
     const id = saveButton.dataset.id;
     if(id){
-        updateNote(titleInput.value , descriptionInput.value);
+        updateNote(id ,titleInput.value , descriptionInput.value);
     }
     else{
         addNote(titleInput.value , descriptionInput.value);
