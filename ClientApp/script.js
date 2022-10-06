@@ -11,6 +11,21 @@ function clearForm(){
 
 }
 
+function displayNoteInForm(note){
+    titleInput.value = note.title;
+    descriptionInput.value = note.description;
+}
+
+function getNoteById(id){
+    fetch(`https://localhost:7203/api/Notes/${id}`)
+    .then(data => data.json())
+    .then(res => displayNoteInForm(res));
+}
+
+function populateForm(id){
+    getNoteById(id)
+}
+
 function addNote(title, descriptoin){
     const body = {
         title: title,
@@ -37,7 +52,7 @@ function displayNotes(notes){
     let allNotes = '';
     notes.forEach(note => {
        const noteElement = `
-                            <div class="note">
+                            <div class="note" data-id="${note.id}">
                                 <h3>${note.title}</h3>
                                 <p>${note.description}</p>
                             </div>
@@ -47,6 +62,13 @@ function displayNotes(notes){
 
     });
     notesContainer.innerHTML = allNotes;
+
+    // add event listheners
+    document.querySelectorAll('.note').forEach(note =>{
+        note.addEventListener('click',function(){
+            populateForm(note.dataset.id)
+        });
+    });
 }
 
 function getAllNotes(){
