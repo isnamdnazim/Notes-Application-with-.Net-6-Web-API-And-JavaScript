@@ -19,6 +19,7 @@ function displayNoteInForm(note){
     descriptionInput.value = note.description;
     deleteButton.classList.remove('hidden');
     deleteButton.setAttribute('data-id', note.id)
+
 }
 
 function getNoteById(id){
@@ -84,8 +85,35 @@ function getAllNotes(){
 
 getAllNotes();
 
+function updateNote (id, title, description){
+    const body = {
+        title: title,
+        description: descriptoin,
+        isVisible: true
+    };
+
+    fetch(`https://localhost:7203/api/Notes/${id}`,{
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {
+            "content-type": "application/json"
+        }
+    })
+    .then(data => data.json())
+    .then(res => {
+        clearForm();
+        getAllNotes();
+    });
+}
+
 saveButton.addEventListener('click', function(){
-    addNote(titleInput.value , descriptionInput.value);
+    const id = saveButton.dataset.id;
+    if(id){
+        updateNote(titleInput.value , descriptionInput.value);
+    }
+    else{
+        addNote(titleInput.value , descriptionInput.value);
+    }
 });
 
 function deleteNote(id){
