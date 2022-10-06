@@ -83,3 +83,11 @@ body{
     overflow: auto;
     font-size: 13;
 }
+
+.btn-delete{
+    background-color: #e74c3c !important;
+}
+
+.hidden {
+    display: none;
+}
