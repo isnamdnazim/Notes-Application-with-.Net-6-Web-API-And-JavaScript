@@ -10,6 +10,7 @@ const deleteButton = document.querySelector('#btnDelete');
 function clearForm(){
     titleInput.value = '';
     descriptionInput.value = '';
+    deleteButton.classList.add('hidden');
 
 }
 
@@ -94,9 +95,9 @@ function deleteNote(id){
             "content-type": "application/json"
         }
     })
-    .then(data => data.json())
     .then(res => {
-        console.log(res);
+        clearForm()
+        getAllNotes();
     });
 }
 
